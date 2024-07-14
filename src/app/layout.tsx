@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import Navbar from "@/components/ui/Navbar/Navbar";
+import Footer from "@/components/ui/Footer/Footer";
+import { ApiProvider } from "@/framework/shopify";
+import { SheetProvider } from "@/components/Product/SheetContext/SheetContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +19,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ApiProvider>
+          <SheetProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </SheetProvider>
+        </ApiProvider>
+      </body>
     </html>
   );
 }
